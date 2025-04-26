@@ -19,8 +19,8 @@ app.use((req, res, next) => {
         req.jsonFilePath = path.join(__dirname, 'test.json');
         req.imagesDir = path.join(__dirname, 'images');
     } else {
-        req.jsonFilePath = process.env.JSON_FILE_PATH;
-        req.imagesDir = process.env.IMAGE_DIR_PATH;
+        req.jsonFilePath = "https://english2.onrender.com/test.json";
+        req.imagesDir = "https://english2.onrender.com/images";
     }
 
     // Ensure the image directory exists

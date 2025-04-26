@@ -15,13 +15,10 @@ app.use((req, res, next) => {
     const host = req.get('Host');
     const isLocal = host.includes('localhost') || host.includes('127.0.0.1');
 
-    if (isLocal) {
-        req.jsonFilePath = path.join(__dirname, 'test.json');
-        req.imagesDir = path.join(__dirname, 'images');
-    } else {
+
         req.jsonFilePath = "https://english2.onrender.com/test.json";
         req.imagesDir = "https://english2.onrender.com/images";
-    }
+    
 
     // Ensure the image directory exists
     if (!fs.existsSync(req.imagesDir)) {

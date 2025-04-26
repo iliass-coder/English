@@ -10,15 +10,29 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(cors());  
 
-const jsonFilePath = path.join(__dirname, 'test.json');
-const imagesDir = path.join(__dirname, 'images');
+// Middleware to determine environment
+app.use((req, res, next) => {
+    const host = req.get('Host');
+    const isLocal = host.includes('localhost') || host.includes('127.0.0.1');
 
-if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir);
-}
+    if (isLocal) {
+        req.jsonFilePath = path.join(__dirname, 'test.json');
+        req.imagesDir = path.join(__dirname, 'images');
+    } else {
+        req.jsonFilePath = process.env.JSON_FILE_PATH;
+        req.imagesDir = process.env.IMAGE_DIR_PATH;
+    }
+
+    // Ensure the image directory exists
+    if (!fs.existsSync(req.imagesDir)) {
+        fs.mkdirSync(req.imagesDir);
+    }
+
+    next(); // Pass to the next middleware or route handler
+});
 
 app.get('/test.json', (req, res) => {
-    fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+    fs.readFile(req.jsonFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading JSON file:', err);
             res.status(500).send('Error reading JSON file');
@@ -32,7 +46,7 @@ app.post('/add-word', (req, res) => {
     let newWord = JSON.parse(req.body.wordData);
     if (req.files && req.files.image) {
         let imageFile = req.files.image;
-        let uploadPath = path.join(imagesDir, imageFile.name);
+        let uploadPath = path.join(req.imagesDir, imageFile.name);
 
         imageFile.mv(uploadPath, (err) => {
             if (err) {
@@ -41,14 +55,14 @@ app.post('/add-word', (req, res) => {
             }
 
             newWord.imageUrl = `/images/${imageFile.name}`;
-            addWordToJSON(newWord, res);
+            addWordToJSON(newWord, req.jsonFilePath, res);
         });
     } else {
-        addWordToJSON(newWord, res);
+        addWordToJSON(newWord, req.jsonFilePath, res);
     }
 });
 
-function addWordToJSON(newWord, res) {
+function addWordToJSON(newWord, jsonFilePath, res) {
     fs.readFile(jsonFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading JSON file:', err);
@@ -70,7 +84,7 @@ function addWordToJSON(newWord, res) {
 
 app.get('/search-word', (req, res) => {
     const query = req.query.q.toLowerCase();
-    fs.readFile(jsonFilePath, 'utf8', (err, data) => {
+    fs.readFile(req.jsonFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading JSON file:', err);
             res.status(500).send('Error reading JSON file');

@@ -14,7 +14,7 @@ app.use(cors());
 app.use((req, res, next) => {
     const host = req.get('Host');
     const isLocal = host.includes('localhost') || host.includes('127.0.0.1');
-
+    console.log (host);
 
         req.jsonFilePath = "https://english2.onrender.com/test.json";
         req.imagesDir = "https://english2.onrender.com/images";

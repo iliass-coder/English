@@ -7,6 +7,7 @@ const app = express();
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(fileUpload());
+app.use(cors());  
 
 const jsonFilePath = path.join(__dirname, 'test.json');
 const imagesDir = path.join(__dirname, 'images');

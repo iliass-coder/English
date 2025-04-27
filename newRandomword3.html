@@ -114,7 +114,7 @@
     <script>
         let wordsAndDefinitions = [];
 
-        fetch('http://localhost:8080/test.json')
+        fetch('https://english2.onrender.com/test.json')
             .then(response => response.json())
             .then(data => {
                 wordsAndDefinitions = data;

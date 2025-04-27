@@ -169,7 +169,7 @@
                     formData.append('image', file);
                 }
 
-                fetch('http://localhost:8080/add-word', {
+                fetch('https://english2.onrender.com/add-word', {
                     method: 'POST',
                     body: formData
                 })
@@ -205,7 +205,7 @@
 
         function searchWord() {
             const query = document.getElementById('searchInput').value;
-            fetch(`http://localhost:8080/search-word?q=${query}`)
+            fetch(`https://english2.onrender.com/search-word?q=${query}`)
                 .then(response => response.json())
                 .then(data => {
                     const resultsList = document.getElementById('resultsList');

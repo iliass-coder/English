@@ -114,7 +114,7 @@
     <script>
         let wordsAndDefinitions = [];
 
-        fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/word.json')
+        fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json')
             .then(response => response.json())
             .then(data => {
                 wordsAndDefinitions = data;

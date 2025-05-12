@@ -1,232 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Randomizer</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+<script>
+    let wordsAndDefinitions = [];
+
+    fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json')
+        .then(response => response.json())
+        .then(data => {
+            wordsAndDefinitions = data;
+            showRandomWord();
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+
+    const isLocalhost = window.location.hostname === 'localhost';
+    const baseUrl = isLocalhost ? 'http://localhost:8080' : 'https://english2.onrender.com';
+
+    let currentIndex = -1;
+
+    function showRandomWord() {
+        const randomIndex = Math.floor(Math.random() * wordsAndDefinitions.length);
+        currentIndex = randomIndex;
+        document.getElementById('word').innerText = wordsAndDefinitions[randomIndex].word;
+        document.getElementById('definition').style.display = 'none';
+        const imgElement = document.getElementById('image');
+        if (wordsAndDefinitions[randomIndex].imageUrl) {
+            imgElement.src = wordsAndDefinitions[randomIndex].imageUrl;
+            imgElement.style.display = 'block';
+        } else {
+            imgElement.style.display = 'none';
         }
+    }
 
-        h1 {
-            color: #333;
+    function showDefinition() {
+        if (currentIndex !== -1) {
+            document.getElementById('definition').innerText = wordsAndDefinitions[currentIndex].definition;
+            document.getElementById('definition').style.display = 'block';
         }
+    }
 
-        p {
-            display: none;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            color: #333;
-        }
+    function showAddWordForm() {
+        document.getElementById('addWordForm').style.display = 'flex';
+    }
 
-        img {
-            max-width: 300px;
-            max-height: 300px;
-            margin-top: 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    function hideAddWordForm() {
+        document.getElementById('addWordForm').style.display = 'none';
+    }
 
-        button, input[type="file"], input[type="text"], textarea {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    function addWord() {
+        const newWord = document.getElementById('newWord').value;
+        const newDefinition = document.getElementById('newDefinition').value;
+        const imageInput = document.getElementById('imageUpload');
+        const file = imageInput.files[0];
 
-        button:hover {
-            background-color: #45a049;
-        }
+        if (newWord && newDefinition) {
+            const newEntry = { word: newWord, definition: newDefinition };
+            const formData = new FormData();
+            formData.append('wordData', JSON.stringify(newEntry));
+            if (file) {
+                formData.append('image', file);
+            }
 
-        input[type="text"], textarea {
-		    background-color: black;
-            width: 300px;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        #addWordForm {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #searchResults {
-            margin-top: 20px;
-        }
-
-        #searchResults ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #searchResults li {
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <h1 id="word">Word</h1>
-    <p id="definition">Definition</p>
-    <img id="image" src="" alt="Word Image">
-    <button onclick="showDefinition()">Show Definition</button>
-    <button onclick="showRandomWord()">Next Word</button>
-    <button onclick="showAddWordForm()">Add Word</button>
-    <button onclick="speak()">Pronounce</button>
-
-    <div id="addWordForm">
-        <input type="text" id="newWord" placeholder="New Word">
-        <textarea id="newDefinition" placeholder="Definition"></textarea>
-        <input type="file" id="imageUpload" accept="image/*">
-        <button onclick="addWord()">Submit</button>
-        <button onclick="hideAddWordForm()">Cancel</button>
-    </div>
-
-    <input type="text" id="searchInput" placeholder="Search for a word...">
-    <button onclick="searchWord()">Search</button>
-
-    <div id="searchResults">
-        <ul id="resultsList"></ul>
-    </div>
-
-    <script>
-        let wordsAndDefinitions = [];
-
-        fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json')
-            .then(response => response.json())
+            fetch(`${baseUrl}/add-word`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
             .then(data => {
-                wordsAndDefinitions = data;
-                showRandomWord();
+                alert(data);
+                wordsAndDefinitions.push(newEntry);
+                currentIndex = wordsAndDefinitions.length - 1;
+                showDefinition();
+                hideAddWordForm();
+                document.getElementById('newWord').value = '';
+                document.getElementById('newDefinition').value = '';
+                document.getElementById('imageUpload').value = '';
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
+                console.error('Error adding word:', error);
+                alert('Error adding word');
             });
-
-        let currentIndex = -1;
-
-        function showRandomWord() {
-            const randomIndex = Math.floor(Math.random() * wordsAndDefinitions.length);
-            currentIndex = randomIndex;
-            document.getElementById('word').innerText = wordsAndDefinitions[randomIndex].word;
-            document.getElementById('definition').style.display = 'none';
-            const imgElement = document.getElementById('image');
-            if (wordsAndDefinitions[randomIndex].imageUrl) {
-                imgElement.src = wordsAndDefinitions[randomIndex].imageUrl;
-                imgElement.style.display = 'block';
-            } else {
-                imgElement.style.display = 'none';
-            }
+        } else {
+            alert("Invalid input. Word not added.");
         }
+    }
 
-        function showDefinition() {
-            if (currentIndex !== -1) {
-                document.getElementById('definition').innerText = wordsAndDefinitions[currentIndex].definition;
-                document.getElementById('definition').style.display = 'block';
-            }
-        }
+    function speak() {
+        const msg = new SpeechSynthesisUtterance();
+        const wordInput = document.getElementById('word').innerText;
 
-        function showAddWordForm() {
-            document.getElementById('addWordForm').style.display = 'flex';
-        }
+        msg.text = wordInput;
+        msg.lang = 'en-US';
 
-        function hideAddWordForm() {
-            document.getElementById('addWordForm').style.display = 'none';
-        }
+        window.speechSynthesis.speak(msg);
+    }
 
-        function addWord() {
-            const newWord = document.getElementById('newWord').value;
-            const newDefinition = document.getElementById('newDefinition').value;
-            const imageInput = document.getElementById('imageUpload');
-            const file = imageInput.files[0];
-
-            if (newWord && newDefinition) {
-                const newEntry = { word: newWord, definition: newDefinition };
-                const formData = new FormData();
-                formData.append('wordData', JSON.stringify(newEntry));
-                if (file) {
-                    formData.append('image', file);
+    function searchWord() {
+        const query = document.getElementById('searchInput').value;
+        fetch(`${baseUrl}/search-word?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultsList = document.getElementById('resultsList');
+                resultsList.innerHTML = '';
+                if (data.length === 0) {
+                    resultsList.innerHTML = '<li>No results found</li>';
+                } else {
+                    data.forEach(entry => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${entry.word}</strong><br>${entry.definition}`;
+                        if (entry.imageUrl) {
+                            li.innerHTML += `<br><img src="${entry.imageUrl}" alt="Image" style="max-width: 100%;">`;
+                        }
+                        resultsList.appendChild(li);
+                    });
                 }
-
-                fetch('http://localhost:8080/add-word', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.text())
-                .then(data => {
-                    alert(data);
-                    wordsAndDefinitions.push(newEntry);
-                    currentIndex = wordsAndDefinitions.length - 1;
-                    showDefinition();
-                    hideAddWordForm();
-                    document.getElementById('newWord').value = '';
-                    document.getElementById('newDefinition').value = '';
-                    document.getElementById('imageUpload').value = '';
-                })
-                .catch(error => {
-                    console.error('Error adding word:', error);
-                    alert('Error adding word');
-                });
-            } else {
-                alert("Invalid input. Word not added.");
-            }
-        }
-
-        function speak() {
-            const msg = new SpeechSynthesisUtterance();
-            const wordInput = document.getElementById('word').innerText;
-
-            msg.text = wordInput;
-            msg.lang = 'en-US';
-
-            window.speechSynthesis.speak(msg);
-        }
-
-        function searchWord() {
-            const query = document.getElementById('searchInput').value;
-            fetch(`http://localhost:8080/search-word?q=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                    const resultsList = document.getElementById('resultsList');
-                    resultsList.innerHTML = '';
-                    if (data.length === 0) {
-                        resultsList.innerHTML = '<li>No results found</li>';
-                    } else {
-                        data.forEach(entry => {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<strong>${entry.word}</strong><br>${entry.definition}`;
-                            if (entry.imageUrl) {
-                                li.innerHTML += `<br><img src="${entry.imageUrl}" alt="Image" style="max-width: 100%;">`;
-                            }
-                            resultsList.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error searching word:', error);
-                });
-        }
-    </script>
-</body>
-</html>
+            })
+            .catch(error => {
+                console.error('Error searching word:', error);
+            });
+    }
+</script>

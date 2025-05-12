@@ -1,4 +1,117 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Randomizer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button, input[type="file"], input[type="text"], textarea {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="text"], textarea {
+		    background-color: black;
+            width: 300px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #addWordForm {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #searchResults {
+            margin-top: 20px;
+        }
+
+        #searchResults ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #searchResults li {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1 id="word">Word</h1>
+    <p id="definition">Definition</p>
+    <img id="image" src="" alt="Word Image">
+    <button onclick="showDefinition()">Show Definition</button>
+    <button onclick="showRandomWord()">Next Word</button>
+    <button onclick="showAddWordForm()">Add Word</button>
+    <button onclick="speak()">Pronounce</button>
+
+    <div id="addWordForm">
+        <input type="text" id="newWord" placeholder="New Word">
+        <textarea id="newDefinition" placeholder="Definition"></textarea>
+        <input type="file" id="imageUpload" accept="image/*">
+        <button onclick="addWord()">Submit</button>
+        <button onclick="hideAddWordForm()">Cancel</button>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="Search for a word...">
+    <button onclick="searchWord()">Search</button>
+
+    <div id="searchResults">
+        <ul id="resultsList"></ul>
+    </div>
+
+    <script>
     let wordsAndDefinitions = [];
 
     fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json')
@@ -117,4 +230,7 @@
                 console.error('Error searching word:', error);
             });
     }
-</script>
+    </script>
+
+</body>
+</html>

@@ -39,3 +39,6 @@ coverage/
 
 # Misc
 *.tgz
+
+# Env files
+.env

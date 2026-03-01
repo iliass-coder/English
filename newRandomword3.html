@@ -97,10 +97,12 @@
     <button onclick="speak()">Pronounce</button>
 
     <div id="addWordForm">
+        <h3 id="formTitle">Add Word</h3>
+        <input type="hidden" id="editOriginalWord">
         <input type="text" id="newWord" placeholder="New Word">
         <textarea id="newDefinition" placeholder="Definition"></textarea>
         <input type="file" id="imageUpload" accept="image/*">
-        <button onclick="addWord()">Submit</button>
+        <button id="submitWordBtn" onclick="addWord()">Submit</button>
         <button onclick="hideAddWordForm()">Cancel</button>
     </div>
 
@@ -151,11 +153,30 @@
     }
 
     function showAddWordForm() {
+        document.getElementById('formTitle').innerText = 'Add Word';
+        document.getElementById('submitWordBtn').innerText = 'Submit';
+        document.getElementById('submitWordBtn').onclick = addWord;
+        document.getElementById('editOriginalWord').value = '';
+        document.getElementById('newWord').value = '';
+        document.getElementById('newDefinition').value = '';
+        document.getElementById('imageUpload').value = '';
         document.getElementById('addWordForm').style.display = 'flex';
     }
 
     function hideAddWordForm() {
         document.getElementById('addWordForm').style.display = 'none';
+        document.getElementById('submitWordBtn').onclick = addWord;
+    }
+
+    function showEditWordForm(entry) {
+        document.getElementById('formTitle').innerText = 'Edit Word';
+        document.getElementById('submitWordBtn').innerText = 'Update';
+        document.getElementById('submitWordBtn').onclick = editWord;
+        document.getElementById('editOriginalWord').value = entry.word;
+        document.getElementById('newWord').value = entry.word;
+        document.getElementById('newDefinition').value = entry.definition;
+        document.getElementById('imageUpload').value = '';
+        document.getElementById('addWordForm').style.display = 'flex';
     }
 
     function addWord() {
@@ -196,6 +217,59 @@
         }
     }
 
+    function editWord() {
+        const originalWord = document.getElementById('editOriginalWord').value;
+        const newWord = document.getElementById('newWord').value;
+        const newDefinition = document.getElementById('newDefinition').value;
+        const imageInput = document.getElementById('imageUpload');
+        const file = imageInput.files[0];
+
+        if (originalWord && newWord && newDefinition) {
+            const updatedEntry = { word: newWord, definition: newDefinition };
+            const existingEntry = wordsAndDefinitions.find(
+                entry => entry.word.toLowerCase() === originalWord.toLowerCase()
+            );
+            const formData = new FormData();
+            formData.append('originalWord', originalWord);
+            formData.append('wordData', JSON.stringify(updatedEntry));
+
+            if (file) {
+                formData.append('image', file);
+                updatedEntry.imageUrl = `/images/${file.name}`;
+            } else if (existingEntry && existingEntry.imageUrl) {
+                updatedEntry.imageUrl = existingEntry.imageUrl;
+            }
+
+            fetch(`${baseUrl}/edit-word`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                const existingIndex = wordsAndDefinitions.findIndex(
+                    entry => entry.word.toLowerCase() === originalWord.toLowerCase()
+                );
+
+                if (existingIndex !== -1) {
+                    wordsAndDefinitions[existingIndex] = {
+                        ...wordsAndDefinitions[existingIndex],
+                        ...updatedEntry
+                    };
+                }
+
+                hideAddWordForm();
+                searchWord();
+            })
+            .catch(error => {
+                console.error('Error editing word:', error);
+                alert('Error editing word');
+            });
+        } else {
+            alert('Invalid input. Word not updated.');
+        }
+    }
+
     function speak() {
         const msg = new SpeechSynthesisUtterance();
         const wordInput = document.getElementById('word').innerText;
@@ -222,6 +296,11 @@
                         if (entry.imageUrl) {
                             li.innerHTML += `<br><img src="${entry.imageUrl}" alt="Image" style="max-width: 100%;">`;
                         }
+                        li.appendChild(document.createElement('br'));
+                        const editButton = document.createElement('button');
+                        editButton.innerText = 'Edit';
+                        editButton.onclick = () => showEditWordForm(entry);
+                        li.appendChild(editButton);
                         resultsList.appendChild(li);
                     });
                 }

@@ -101,6 +101,63 @@ async function addWordToGitHubJson(newWord, res) {
     }
 }
 
+app.post('/edit-word', async (req, res) => {
+    const originalWord = req.body.originalWord;
+    let updatedWord;
+
+    try {
+        updatedWord = JSON.parse(req.body.wordData);
+    } catch (err) {
+        return res.status(400).send('Invalid word data');
+    }
+
+    if (!originalWord || !updatedWord.word || !updatedWord.definition) {
+        return res.status(400).send('Missing required fields');
+    }
+
+    if (req.files && req.files.image) {
+        const imageFile = req.files.image;
+        const uploadPath = path.join(imagesDir, imageFile.name);
+
+        imageFile.mv(uploadPath, async (err) => {
+            if (err) {
+                console.error('Error uploading file:', err);
+                return res.status(500).send(err);
+            }
+
+            updatedWord.imageUrl = `/images/${imageFile.name}`;
+            await updateWordInGitHubJson(originalWord, updatedWord, res);
+        });
+    } else {
+        await updateWordInGitHubJson(originalWord, updatedWord, res);
+    }
+});
+
+async function updateWordInGitHubJson(originalWord, updatedWord, res) {
+    try {
+        const { content, sha } = await readJsonFromGitHub();
+        const wordIndex = content.findIndex(
+            (entry) => entry.word && entry.word.toLowerCase() === originalWord.toLowerCase()
+        );
+
+        if (wordIndex === -1) {
+            return res.status(404).send('Word not found');
+        }
+
+        const existingWord = content[wordIndex];
+        if (!updatedWord.imageUrl && existingWord.imageUrl) {
+            updatedWord.imageUrl = existingWord.imageUrl;
+        }
+
+        content[wordIndex] = { ...existingWord, ...updatedWord };
+        await writeJsonToGitHub(content, sha);
+        res.send('Word updated successfully on GitHub');
+    } catch (err) {
+        console.error('Error updating GitHub JSON:', err.message);
+        res.status(500).send('Error writing JSON to GitHub');
+    }
+}
+
 app.get('/search-word', async (req, res) => {
     const query = req.query.q.toLowerCase();
     try {

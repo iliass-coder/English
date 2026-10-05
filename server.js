@@ -24,8 +24,8 @@ const GITHUB_REPO = 'English';
 const GITHUB_BRANCH = 'master';
 const GITHUB_FILE_PATH = 'words.json';
 
-async function readJsonFromGitHub() {
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+async function readJsonFromGitHub(filePath = GITHUB_FILE_PATH) {
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BRANCH}`;
     const res = await axios.get(url, {
         headers: {
             Authorization: `token ${GITHUB_TOKEN}`,
@@ -38,13 +38,13 @@ async function readJsonFromGitHub() {
     };
 }
 
-async function writeJsonToGitHub(data, sha) {
+async function writeJsonToGitHub(data, sha, filePath = GITHUB_FILE_PATH) {
     const content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`;
     await axios.put(
         url,
         {
-            message: 'Update word.json from app',
+            message: `Update ${filePath} from app`,
             content,
             sha,
             branch: GITHUB_BRANCH,
@@ -65,6 +65,32 @@ app.get('/word.json', async (req, res) => {
     } catch (err) {
         console.error('Error reading from GitHub:', err.message);
         res.status(500).send('Error reading JSON file');
+    }
+});
+
+app.post('/delete-word', async (req, res) => {
+    const { source, word, definition } = req.body || {};
+    if (!['words.json', 'oxford-3000.json'].includes(source) ||
+        typeof word !== 'string' || !word.trim() || typeof definition !== 'string') {
+        return res.status(400).send('Invalid word or source');
+    }
+
+    try {
+        const { content, sha } = await readJsonFromGitHub(source);
+        const index = content.findIndex(entry =>
+            entry.word === word && entry.definition === definition);
+        if (index === -1) {
+            return res.status(409).send('This word was changed or removed. Reload before trying again.');
+        }
+        content.splice(index, 1);
+        await writeJsonToGitHub(content, sha, source);
+        res.send('Word deleted successfully');
+    } catch (err) {
+        console.error('Error deleting GitHub word:', err.message);
+        const conflict = [409, 422].includes(err.response?.status);
+        res.status(conflict ? 409 : 500).send(conflict
+            ? 'The list changed. Reload before trying again.'
+            : 'Could not delete the word. Please try again.');
     }
 });
 

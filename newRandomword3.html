@@ -59,6 +59,10 @@
             background-color: #45a049;
         }
 
+        #deleteWordBtn { background-color: #b83232; }
+        #deleteWordBtn:hover { background-color: #962929; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
         input[type="text"], textarea {
 		    background-color: black;
             width: 300px;
@@ -103,6 +107,7 @@
     <button onclick="showRandomWord()">Next Word</button>
     <button onclick="showAddWordForm()">Add Word</button>
     <button onclick="speak()">Pronounce</button>
+    <button id="deleteWordBtn" onclick="deleteWord()" disabled>Delete Word</button>
 
     <div id="addWordForm">
         <h3 id="formTitle">Add Word</h3>
@@ -125,15 +130,18 @@
     let wordsAndDefinitions = [];
     let oxfordWords = [];
     let currentEntry = null;
+    let currentSource = 'words.json';
+    let deletingWord = false;
+    let listsLoaded = false;
 
     async function loadWordList(url) {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Cannot load ${url}: ${response.status}`);
         const data = await response.json();
-        if (!Array.isArray(data) || !data.length || data.some(entry =>
+        if (!Array.isArray(data) || data.some(entry =>
             typeof entry.word !== 'string' || !entry.word.trim() ||
             typeof entry.definition !== 'string' || !entry.definition.trim())) {
-            throw new Error(`Invalid or empty word list: ${url}`);
+            throw new Error(`Invalid word list: ${url}`);
         }
         return data;
     }
@@ -145,6 +153,7 @@
         .then(([existingWords, oxfordData]) => {
             wordsAndDefinitions = existingWords;
             oxfordWords = oxfordData;
+            listsLoaded = true;
             showRandomWord();
         })
         .catch(error => {
@@ -156,15 +165,28 @@
     const baseUrl = isLocalhost ? 'http://localhost:8080' : 'https://english2.onrender.com';
 
     function showRandomWord() {
-        if (!wordsAndDefinitions.length || !oxfordWords.length) return;
+        if (!listsLoaded) return;
+        if (!wordsAndDefinitions.length && !oxfordWords.length) {
+            currentEntry = null;
+            document.getElementById('word').innerText = 'No words left. Add a word to continue.';
+            document.getElementById('wordSource').innerText = '';
+            document.getElementById('definition').style.display = 'none';
+            document.getElementById('image').style.display = 'none';
+            document.getElementById('deleteWordBtn').disabled = true;
+            return;
+        }
         // Choose the source first so its size does not affect the 50/50 split.
-        const wordList = Math.random() < 0.5 ? wordsAndDefinitions : oxfordWords;
+        const wordList = !wordsAndDefinitions.length ? oxfordWords :
+            !oxfordWords.length ? wordsAndDefinitions :
+            Math.random() < 0.5 ? wordsAndDefinitions : oxfordWords;
         const source = wordList === oxfordWords ? 'Oxford 3000' : 'My Words';
         displayWord(wordList[Math.floor(Math.random() * wordList.length)], source);
     }
 
     function displayWord(entry, source = 'My Words') {
         currentEntry = entry;
+        currentSource = source === 'Oxford 3000' ? 'oxford-3000.json' : 'words.json';
+        document.getElementById('deleteWordBtn').disabled = deletingWord;
         document.getElementById('wordSource').innerText = source;
         document.getElementById('word').innerText = entry.word;
         document.getElementById('definition').style.display = 'none';
@@ -174,6 +196,40 @@
             imgElement.style.display = 'block';
         } else {
             imgElement.style.display = 'none';
+        }
+    }
+
+    async function deleteWord() {
+        if (!currentEntry || deletingWord) return;
+        const entry = currentEntry;
+        const source = currentSource;
+        const label = source === 'oxford-3000.json' ? 'Oxford 3000' : 'My Words';
+        if (!confirm(`Delete "${entry.word}" from ${label}? This removes it from the saved list.`)) return;
+
+        deletingWord = true;
+        document.getElementById('deleteWordBtn').disabled = true;
+        try {
+            const response = await fetch(`${baseUrl}/delete-word`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ source, word: entry.word, definition: entry.definition })
+            });
+            const message = await response.text();
+            if (!response.ok) throw new Error(message);
+            const list = source === 'oxford-3000.json' ? oxfordWords : wordsAndDefinitions;
+            const index = list.indexOf(entry);
+            if (index !== -1) list.splice(index, 1);
+            if (currentEntry === entry) showRandomWord();
+            if (source === 'words.json') {
+                document.getElementById('resultsList').innerHTML = '';
+                hideAddWordForm();
+            }
+        } catch (error) {
+            console.error('Error deleting word:', error);
+            alert(error.message || 'Could not delete the word. Please try again.');
+        } finally {
+            deletingWord = false;
+            document.getElementById('deleteWordBtn').disabled = !currentEntry;
         }
     }
 

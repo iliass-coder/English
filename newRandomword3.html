@@ -115,30 +115,52 @@
 
     <script>
     let wordsAndDefinitions = [];
+    let oxfordWords = [];
+    let currentEntry = null;
 
-    fetch('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json')
-        .then(response => response.json())
-        .then(data => {
-            wordsAndDefinitions = data;
+    async function loadWordList(url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Cannot load ${url}: ${response.status}`);
+        const data = await response.json();
+        if (!Array.isArray(data) || !data.length || data.some(entry =>
+            typeof entry.word !== 'string' || !entry.word.trim() ||
+            typeof entry.definition !== 'string' || !entry.definition.trim())) {
+            throw new Error(`Invalid or empty word list: ${url}`);
+        }
+        return data;
+    }
+
+    Promise.all([
+        loadWordList('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/words.json'),
+        loadWordList('https://raw.githubusercontent.com/iliass-coder/English/refs/heads/master/oxford-3000.json')
+    ])
+        .then(([existingWords, oxfordData]) => {
+            wordsAndDefinitions = existingWords;
+            oxfordWords = oxfordData;
             showRandomWord();
         })
         .catch(error => {
             console.error('Error fetching data:', error);
+            document.getElementById('word').innerText = 'Could not load word lists. Please reload.';
         });
 
     const isLocalhost = window.location.hostname === 'localhost';
     const baseUrl = isLocalhost ? 'http://localhost:8080' : 'https://english2.onrender.com';
 
-    let currentIndex = -1;
-
     function showRandomWord() {
-        const randomIndex = Math.floor(Math.random() * wordsAndDefinitions.length);
-        currentIndex = randomIndex;
-        document.getElementById('word').innerText = wordsAndDefinitions[randomIndex].word;
+        if (!wordsAndDefinitions.length || !oxfordWords.length) return;
+        // Choose the source first so its size does not affect the 50/50 split.
+        const wordList = Math.random() < 0.5 ? wordsAndDefinitions : oxfordWords;
+        displayWord(wordList[Math.floor(Math.random() * wordList.length)]);
+    }
+
+    function displayWord(entry) {
+        currentEntry = entry;
+        document.getElementById('word').innerText = entry.word;
         document.getElementById('definition').style.display = 'none';
         const imgElement = document.getElementById('image');
-        if (wordsAndDefinitions[randomIndex].imageUrl) {
-            imgElement.src = wordsAndDefinitions[randomIndex].imageUrl;
+        if (entry.imageUrl) {
+            imgElement.src = entry.imageUrl;
             imgElement.style.display = 'block';
         } else {
             imgElement.style.display = 'none';
@@ -146,9 +168,10 @@
     }
 
     function showDefinition() {
-        if (currentIndex !== -1) {
-            document.getElementById('definition').innerText = wordsAndDefinitions[currentIndex].definition;
-            document.getElementById('definition').style.display = 'block';
+        if (currentEntry) {
+            const definition = document.getElementById('definition');
+            definition.innerText = currentEntry.definition;
+            definition.style.display = 'block';
         }
     }
 
@@ -197,11 +220,15 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) throw new Error('Word could not be saved');
+                return response.text();
+            })
             .then(data => {
                 alert(data);
                 wordsAndDefinitions.push(newEntry);
-                currentIndex = wordsAndDefinitions.length - 1;
+                if (file) newEntry.imageUrl = `/images/${file.name}`;
+                displayWord(newEntry);
                 showDefinition();
                 hideAddWordForm();
                 document.getElementById('newWord').value = '';
@@ -252,10 +279,12 @@
                 );
 
                 if (existingIndex !== -1) {
+                    const wasDisplayed = currentEntry === wordsAndDefinitions[existingIndex];
                     wordsAndDefinitions[existingIndex] = {
                         ...wordsAndDefinitions[existingIndex],
                         ...updatedEntry
                     };
+                    if (wasDisplayed) displayWord(wordsAndDefinitions[existingIndex]);
                 }
 
                 hideAddWordForm();

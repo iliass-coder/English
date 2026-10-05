@@ -11914,5 +11914,773 @@
   {
     "word": "zone",
     "definition": "An area or stretch of land having a particular characteristic, purpose, or use, or subject to particular restrictions"
+  },
+  {
+    "word": "ask around",
+    "definition": "To ask several people for information or help."
+  },
+  {
+    "word": "back down",
+    "definition": "To stop defending a demand or opinion because of pressure or opposition."
+  },
+  {
+    "word": "back out",
+    "definition": "To decide not to do something you previously agreed to do."
+  },
+  {
+    "word": "back up",
+    "definition": "To make a safety copy of data; to support someone or their account of events."
+  },
+  {
+    "word": "blow up",
+    "definition": "To explode; to fill something with air; to suddenly become very angry."
+  },
+  {
+    "word": "break down",
+    "definition": "To stop working; to lose emotional control; to divide something into smaller parts."
+  },
+  {
+    "word": "break in",
+    "definition": "To enter a building by force; to interrupt someone who is speaking."
+  },
+  {
+    "word": "break into",
+    "definition": "To enter a place by force, usually to steal something."
+  },
+  {
+    "word": "break out",
+    "definition": "To begin suddenly, especially a fire, war, or disease; to escape from confinement."
+  },
+  {
+    "word": "break up",
+    "definition": "To end a romantic relationship; to separate something into smaller parts."
+  },
+  {
+    "word": "bring about",
+    "definition": "To cause something to happen."
+  },
+  {
+    "word": "bring back",
+    "definition": "To return something; to make someone remember a past experience."
+  },
+  {
+    "word": "bring up",
+    "definition": "To mention a subject; to care for a child until they become an adult."
+  },
+  {
+    "word": "brush up on",
+    "definition": "To improve a skill or knowledge that you have partly forgotten."
+  },
+  {
+    "word": "bump into",
+    "definition": "To meet someone unexpectedly."
+  },
+  {
+    "word": "burn out",
+    "definition": "To become exhausted and unable to work effectively after too much stress or effort."
+  },
+  {
+    "word": "call back",
+    "definition": "To telephone someone again or return their call."
+  },
+  {
+    "word": "call off",
+    "definition": "To cancel a planned event or activity."
+  },
+  {
+    "word": "calm down",
+    "definition": "To become less angry, worried, or excited; to help someone become calmer."
+  },
+  {
+    "word": "carry on",
+    "definition": "To continue doing something."
+  },
+  {
+    "word": "carry out",
+    "definition": "To perform a task or put a plan or instruction into action."
+  },
+  {
+    "word": "catch on",
+    "definition": "To become popular; to begin to understand something."
+  },
+  {
+    "word": "catch up",
+    "definition": "To reach someone who is ahead; to do work or exchange news you have missed."
+  },
+  {
+    "word": "check in",
+    "definition": "To register your arrival at a hotel or airport."
+  },
+  {
+    "word": "check out",
+    "definition": "To leave a hotel after paying; to examine something or find out more about it."
+  },
+  {
+    "word": "cheer up",
+    "definition": "To become happier; to make someone feel happier."
+  },
+  {
+    "word": "clean up",
+    "definition": "To remove dirt or mess and make a place clean."
+  },
+  {
+    "word": "clear up",
+    "definition": "To explain or solve something confusing; to become brighter after bad weather."
+  },
+  {
+    "word": "come across",
+    "definition": "To find or meet someone or something by chance; to create a particular impression."
+  },
+  {
+    "word": "come along",
+    "definition": "To go somewhere with someone; to make progress."
+  },
+  {
+    "word": "come back",
+    "definition": "To return to a place or situation."
+  },
+  {
+    "word": "come down with",
+    "definition": "To begin to suffer from an illness."
+  },
+  {
+    "word": "come in",
+    "definition": "To enter a room or building."
+  },
+  {
+    "word": "come on",
+    "definition": "Used to encourage someone to act or hurry; to start operating."
+  },
+  {
+    "word": "come out",
+    "definition": "To become available or publicly known; to leave an enclosed place."
+  },
+  {
+    "word": "come over",
+    "definition": "To visit someone, usually at their home."
+  },
+  {
+    "word": "come up",
+    "definition": "To be mentioned or happen, often unexpectedly."
+  },
+  {
+    "word": "come up with",
+    "definition": "To think of or produce an idea, answer, or plan."
+  },
+  {
+    "word": "count on",
+    "definition": "To trust someone or something to help or do what is expected."
+  },
+  {
+    "word": "cut back on",
+    "definition": "To reduce the amount of something you use, spend, or do."
+  },
+  {
+    "word": "cut down on",
+    "definition": "To do or consume less of something."
+  },
+  {
+    "word": "cut off",
+    "definition": "To disconnect or stop a supply; to interrupt someone before they finish speaking."
+  },
+  {
+    "word": "cut out",
+    "definition": "To remove something; to stop doing or consuming something."
+  },
+  {
+    "word": "deal with",
+    "definition": "To handle a problem, task, or situation; to be about a particular subject."
+  },
+  {
+    "word": "dress up",
+    "definition": "To wear formal clothes or a costume."
+  },
+  {
+    "word": "drop by",
+    "definition": "To visit someone briefly, often without arranging it first."
+  },
+  {
+    "word": "drop off",
+    "definition": "To take someone or something to a place and leave them there; to fall asleep."
+  },
+  {
+    "word": "drop out",
+    "definition": "To leave a course, competition, or activity before finishing it."
+  },
+  {
+    "word": "eat out",
+    "definition": "To have a meal at a restaurant instead of at home."
+  },
+  {
+    "word": "end up",
+    "definition": "To finally reach a situation or place, often unexpectedly."
+  },
+  {
+    "word": "fall apart",
+    "definition": "To break into pieces; to stop functioning successfully or lose emotional control."
+  },
+  {
+    "word": "fall behind",
+    "definition": "To make less progress than others or fail to keep to a schedule."
+  },
+  {
+    "word": "fall down",
+    "definition": "To fall to the ground from a standing or upright position."
+  },
+  {
+    "word": "fall for",
+    "definition": "To be tricked into believing something; to become strongly attracted to someone."
+  },
+  {
+    "word": "fall out",
+    "definition": "To stop being friendly with someone because of an argument."
+  },
+  {
+    "word": "figure out",
+    "definition": "To understand or solve something by thinking about it."
+  },
+  {
+    "word": "fill in",
+    "definition": "To write missing information on a form; to temporarily do someone else's job."
+  },
+  {
+    "word": "fill out",
+    "definition": "To complete a form by entering the required information."
+  },
+  {
+    "word": "fill up",
+    "definition": "To make something full; to become full."
+  },
+  {
+    "word": "find out",
+    "definition": "To discover or learn information."
+  },
+  {
+    "word": "fit in",
+    "definition": "To feel accepted as part of a group; to find time for something."
+  },
+  {
+    "word": "get across",
+    "definition": "To communicate an idea so that people understand it."
+  },
+  {
+    "word": "get along",
+    "definition": "To have a friendly relationship; to manage or make progress."
+  },
+  {
+    "word": "get around",
+    "definition": "To travel from place to place; to find a way to avoid a difficulty or restriction."
+  },
+  {
+    "word": "get away",
+    "definition": "To escape; to leave for a short holiday or break."
+  },
+  {
+    "word": "get away with",
+    "definition": "To do something wrong without being caught or punished."
+  },
+  {
+    "word": "get back",
+    "definition": "To return; to receive something again after losing or lending it."
+  },
+  {
+    "word": "get by",
+    "definition": "To manage with limited money, knowledge, or other resources."
+  },
+  {
+    "word": "get in",
+    "definition": "To enter a vehicle or place; to arrive."
+  },
+  {
+    "word": "get into",
+    "definition": "To enter; to become interested or involved in something."
+  },
+  {
+    "word": "get off",
+    "definition": "To leave a bus, train, plane, or bicycle."
+  },
+  {
+    "word": "get on",
+    "definition": "To board a bus, train, or plane; to make progress."
+  },
+  {
+    "word": "get out",
+    "definition": "To leave an enclosed place; to become publicly known, especially a secret."
+  },
+  {
+    "word": "get over",
+    "definition": "To recover from an illness, disappointment, or other difficulty."
+  },
+  {
+    "word": "get rid of",
+    "definition": "To remove or dispose of something unwanted."
+  },
+  {
+    "word": "get through",
+    "definition": "To finish or survive something difficult; to reach someone by telephone."
+  },
+  {
+    "word": "get together",
+    "definition": "To meet socially or gather as a group."
+  },
+  {
+    "word": "get up",
+    "definition": "To leave your bed after sleeping; to rise to a standing position."
+  },
+  {
+    "word": "give away",
+    "definition": "To give something for free; to reveal a secret or someone's identity."
+  },
+  {
+    "word": "give back",
+    "definition": "To return something to its owner."
+  },
+  {
+    "word": "give in",
+    "definition": "To stop resisting or arguing and agree to what someone wants."
+  },
+  {
+    "word": "give out",
+    "definition": "To distribute things; to stop working because a supply or strength is exhausted."
+  },
+  {
+    "word": "give up",
+    "definition": "To stop trying; to stop doing something regularly."
+  },
+  {
+    "word": "go ahead",
+    "definition": "To start or proceed with something, often after receiving permission."
+  },
+  {
+    "word": "go away",
+    "definition": "To leave a place; to disappear or stop being a problem."
+  },
+  {
+    "word": "go back",
+    "definition": "To return to a place, activity, or earlier time."
+  },
+  {
+    "word": "go off",
+    "definition": "To sound an alarm; to explode; to become unfit to eat."
+  },
+  {
+    "word": "go on",
+    "definition": "To continue; to happen."
+  },
+  {
+    "word": "go out",
+    "definition": "To leave home for a social activity; to stop burning or shining."
+  },
+  {
+    "word": "go over",
+    "definition": "To examine or review something carefully."
+  },
+  {
+    "word": "go through",
+    "definition": "To experience something difficult; to examine something in detail."
+  },
+  {
+    "word": "grow up",
+    "definition": "To become an adult; to spend your childhood in a particular place."
+  },
+  {
+    "word": "hand in",
+    "definition": "To give completed work or a document to the person responsible for receiving it."
+  },
+  {
+    "word": "hand out",
+    "definition": "To distribute something to a group of people."
+  },
+  {
+    "word": "hand over",
+    "definition": "To give someone possession or control of something."
+  },
+  {
+    "word": "hang on",
+    "definition": "To wait briefly; to hold something tightly."
+  },
+  {
+    "word": "hang out",
+    "definition": "To spend time relaxing or socializing somewhere."
+  },
+  {
+    "word": "hang up",
+    "definition": "To end a telephone call; to place something on a hook or hanger."
+  },
+  {
+    "word": "hold back",
+    "definition": "To stop someone or something from progressing; to avoid expressing a feeling or sharing information."
+  },
+  {
+    "word": "hold on",
+    "definition": "To wait; to keep a firm grip on something."
+  },
+  {
+    "word": "hold up",
+    "definition": "To delay someone or something; to rob using threats or a weapon."
+  },
+  {
+    "word": "keep on",
+    "definition": "To continue doing something, often repeatedly."
+  },
+  {
+    "word": "keep up",
+    "definition": "To maintain the same speed, standard, or rate of progress."
+  },
+  {
+    "word": "keep up with",
+    "definition": "To stay at the same pace as someone; to stay informed about changes."
+  },
+  {
+    "word": "leave out",
+    "definition": "To omit someone or something from a group, list, or activity."
+  },
+  {
+    "word": "let down",
+    "definition": "To disappoint someone by failing to do what they expected."
+  },
+  {
+    "word": "let in",
+    "definition": "To allow someone or something to enter."
+  },
+  {
+    "word": "log in",
+    "definition": "To enter your account details to access a computer system or service."
+  },
+  {
+    "word": "log out",
+    "definition": "To end your session on a computer system or service."
+  },
+  {
+    "word": "look after",
+    "definition": "To take care of someone or something."
+  },
+  {
+    "word": "look around",
+    "definition": "To explore a place or examine what is available there."
+  },
+  {
+    "word": "look back",
+    "definition": "To think about something that happened in the past."
+  },
+  {
+    "word": "look down on",
+    "definition": "To consider someone or something less worthy of respect than yourself."
+  },
+  {
+    "word": "look for",
+    "definition": "To try to find someone or something."
+  },
+  {
+    "word": "look forward to",
+    "definition": "To feel pleased or excited about something that will happen."
+  },
+  {
+    "word": "look into",
+    "definition": "To investigate or examine something."
+  },
+  {
+    "word": "look out",
+    "definition": "To be careful or watch for danger."
+  },
+  {
+    "word": "look over",
+    "definition": "To examine something, usually quickly."
+  },
+  {
+    "word": "look up",
+    "definition": "To search for information in a reference source; to improve, especially a situation."
+  },
+  {
+    "word": "look up to",
+    "definition": "To admire and respect someone."
+  },
+  {
+    "word": "make out",
+    "definition": "To see, hear, or understand something with difficulty."
+  },
+  {
+    "word": "make up",
+    "definition": "To invent a story or explanation; to become friendly again after an argument."
+  },
+  {
+    "word": "make up for",
+    "definition": "To compensate for something bad, missing, or disappointing."
+  },
+  {
+    "word": "move in",
+    "definition": "To begin living in a new home."
+  },
+  {
+    "word": "move on",
+    "definition": "To proceed to another activity or stage; to stop focusing on a past experience."
+  },
+  {
+    "word": "move out",
+    "definition": "To stop living in a home and leave it."
+  },
+  {
+    "word": "pass away",
+    "definition": "To die; a gentle way of speaking about death."
+  },
+  {
+    "word": "pass out",
+    "definition": "To become unconscious; to distribute something."
+  },
+  {
+    "word": "pay back",
+    "definition": "To return money you borrowed."
+  },
+  {
+    "word": "pay off",
+    "definition": "To finish paying a debt; to produce a good result after effort."
+  },
+  {
+    "word": "pick out",
+    "definition": "To choose something; to recognize someone or something among others."
+  },
+  {
+    "word": "pick up",
+    "definition": "To lift or collect someone or something; to learn something through experience."
+  },
+  {
+    "word": "point out",
+    "definition": "To draw someone's attention to a fact or detail."
+  },
+  {
+    "word": "put away",
+    "definition": "To place something where it is normally kept."
+  },
+  {
+    "word": "put back",
+    "definition": "To return something to its previous place; to delay a scheduled event."
+  },
+  {
+    "word": "put down",
+    "definition": "To place something on a surface; to criticize someone in a hurtful way."
+  },
+  {
+    "word": "put off",
+    "definition": "To postpone something; to make someone lose interest or feel unwilling."
+  },
+  {
+    "word": "put on",
+    "definition": "To dress in a piece of clothing; to start playing music or a video; to gain weight."
+  },
+  {
+    "word": "put out",
+    "definition": "To extinguish a fire or lighted cigarette."
+  },
+  {
+    "word": "put together",
+    "definition": "To assemble parts; to prepare something by combining information or materials."
+  },
+  {
+    "word": "put up",
+    "definition": "To raise or display something; to let someone stay in your home temporarily."
+  },
+  {
+    "word": "put up with",
+    "definition": "To tolerate someone or something unpleasant."
+  },
+  {
+    "word": "run away",
+    "definition": "To leave or escape, often secretly or suddenly."
+  },
+  {
+    "word": "run into",
+    "definition": "To meet someone unexpectedly; to encounter a problem."
+  },
+  {
+    "word": "run out of",
+    "definition": "To have no more of something because it has all been used."
+  },
+  {
+    "word": "set off",
+    "definition": "To begin a journey; to trigger an alarm or explosion."
+  },
+  {
+    "word": "set up",
+    "definition": "To establish or arrange something; to prepare equipment for use."
+  },
+  {
+    "word": "settle down",
+    "definition": "To become calmer; to begin a stable way of life in one place."
+  },
+  {
+    "word": "show off",
+    "definition": "To try to impress people by displaying your abilities or possessions."
+  },
+  {
+    "word": "show up",
+    "definition": "To arrive or appear, especially when expected."
+  },
+  {
+    "word": "shut down",
+    "definition": "To stop a machine or system; to close a business or operation."
+  },
+  {
+    "word": "sign up",
+    "definition": "To register to take part in something or receive a service."
+  },
+  {
+    "word": "sit down",
+    "definition": "To move into a seated position."
+  },
+  {
+    "word": "sort out",
+    "definition": "To organize something or solve a problem."
+  },
+  {
+    "word": "speak up",
+    "definition": "To speak more loudly; to express an opinion openly."
+  },
+  {
+    "word": "stand by",
+    "definition": "To remain ready to help; to continue supporting someone."
+  },
+  {
+    "word": "stand for",
+    "definition": "To represent something, especially as an abbreviation; to support a principle."
+  },
+  {
+    "word": "stand out",
+    "definition": "To be easy to notice or different from others."
+  },
+  {
+    "word": "stand up",
+    "definition": "To rise to your feet."
+  },
+  {
+    "word": "stay up",
+    "definition": "To remain awake later than usual."
+  },
+  {
+    "word": "stick to",
+    "definition": "To continue following a plan, rule, or decision."
+  },
+  {
+    "word": "switch off",
+    "definition": "To stop a device by using a switch; to stop paying attention."
+  },
+  {
+    "word": "switch on",
+    "definition": "To start a device by using a switch."
+  },
+  {
+    "word": "take after",
+    "definition": "To resemble an older family member in appearance or character."
+  },
+  {
+    "word": "take away",
+    "definition": "To remove something; to buy prepared food to eat elsewhere."
+  },
+  {
+    "word": "take back",
+    "definition": "To return something; to admit that something you said was wrong."
+  },
+  {
+    "word": "take off",
+    "definition": "To remove clothing; to leave the ground, especially an aircraft; to become successful quickly."
+  },
+  {
+    "word": "take on",
+    "definition": "To accept work or responsibility; to employ someone."
+  },
+  {
+    "word": "take out",
+    "definition": "To remove something; to take someone somewhere for a social activity."
+  },
+  {
+    "word": "take over",
+    "definition": "To gain control of something or assume another person's responsibilities."
+  },
+  {
+    "word": "take up",
+    "definition": "To begin a hobby or activity; to occupy time or space."
+  },
+  {
+    "word": "talk over",
+    "definition": "To discuss something carefully before making a decision."
+  },
+  {
+    "word": "tear up",
+    "definition": "To rip something into pieces."
+  },
+  {
+    "word": "think over",
+    "definition": "To consider something carefully before deciding."
+  },
+  {
+    "word": "throw away",
+    "definition": "To put something in the rubbish; to waste an opportunity."
+  },
+  {
+    "word": "try on",
+    "definition": "To put on clothing to see whether it fits or suits you."
+  },
+  {
+    "word": "try out",
+    "definition": "To test something to see how well it works or whether you like it."
+  },
+  {
+    "word": "turn around",
+    "definition": "To face the opposite direction; to improve a failing situation."
+  },
+  {
+    "word": "turn back",
+    "definition": "To stop travelling forward and return in the direction you came from."
+  },
+  {
+    "word": "turn down",
+    "definition": "To reject an offer or request; to reduce the volume or intensity of something."
+  },
+  {
+    "word": "turn into",
+    "definition": "To become something different; to change something into a different form."
+  },
+  {
+    "word": "turn off",
+    "definition": "To stop a device; to make someone lose interest."
+  },
+  {
+    "word": "turn on",
+    "definition": "To start a device or supply of electricity, water, or gas."
+  },
+  {
+    "word": "turn out",
+    "definition": "To have a particular result; to prove to be a certain way."
+  },
+  {
+    "word": "turn up",
+    "definition": "To arrive or be found; to increase the volume or intensity of something."
+  },
+  {
+    "word": "use up",
+    "definition": "To use all of something so that none remains."
+  },
+  {
+    "word": "wake up",
+    "definition": "To stop sleeping; to make someone stop sleeping."
+  },
+  {
+    "word": "walk away",
+    "definition": "To leave a situation, often to avoid involvement or further difficulty."
+  },
+  {
+    "word": "watch out",
+    "definition": "To be alert and careful because there may be danger."
+  },
+  {
+    "word": "wear out",
+    "definition": "To damage something through repeated use; to make someone extremely tired."
+  },
+  {
+    "word": "work out",
+    "definition": "To exercise; to solve or calculate something; to develop successfully."
+  },
+  {
+    "word": "write down",
+    "definition": "To record something in writing."
   }
 ]
